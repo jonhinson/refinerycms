@@ -25,8 +25,7 @@ module Refinery
               d.region = ENV['S3_REGION'] if ENV['S3_REGION'] # otherwise defaults to 'us-east-1'
             end
           else
-            logger.info "S3 NOT ENABLED!!!"
-            logger.info ENV.inspect
+            raise "S3 NOT ENABLED!!! #{ENV.inspect}"
           end
 
           app_images.define_macro(::ActiveRecord::Base, :image_accessor)
