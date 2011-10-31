@@ -82,7 +82,7 @@ module Refinery
             puts "Now run:"
             puts "bundle install"
             unless engine.present?
-              puts "rails generate refinery:#{plural_name}"
+              puts "rake refinery_#{plural_name}:install:migrations"
             else
               puts "rails generate refinery:#{engine} #{plural_name}"
             end
