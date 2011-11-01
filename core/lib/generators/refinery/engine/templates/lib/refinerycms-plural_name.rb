@@ -1,5 +1,5 @@
 module Refinery
-  autoload :<%= class_name.pluralize %>Generator, File.expand_path('../generators/<%= plural_name %>_generator', __FILE__)
+  autoload :<%= class_name.pluralize %>Generator, File.expand_path('../generators/refinery/<%= plural_name %>_generator', __FILE__)
 
   module <%= class_name.pluralize %><%= 'Engine' if plural_name == singular_name %>
     class Engine < Rails::Engine
