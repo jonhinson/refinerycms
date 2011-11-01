@@ -3,20 +3,14 @@ module Refinery
 
   module <%= class_name.pluralize %><%= 'Engine' if plural_name == singular_name %>
     class Engine < Rails::Engine
-      include Refinery::Engine
-
       isolate_namespace Refinery
-      engine_name :refinery_<%= plural_name %>
 
-      config.after_initialize do
-        Refinery.register_engine(Refinery::<%= class_name.pluralize %>)
-      end
-
-      config.after_initialize do
+      initializer "init plugin", :after => :set_routes_reloader do |app|
         Refinery::Plugin.register do |plugin|
-          plugin.name = "<%= class_name.pluralize.underscore.downcase %>"
-          plugin.url = '/refinery/<%= plural_name %>'
           plugin.pathname = root
+          plugin.name = "refinery_<%= plural_name %>"
+          plugin.directory = "<%= plural_name %>"
+          plugin.url = '/refinery/<%= plural_name %>'
           plugin.activity = {
             :class_name => "Refinery::<%= class_name %>"<% if (title = attributes.detect { |a| a.type.to_s == "string" }).present? and title.name != 'title' %>,
             :title => '<%= title.name %>'<% end %>
